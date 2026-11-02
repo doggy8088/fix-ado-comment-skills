@@ -4,7 +4,7 @@
 
 ## 目錄結構
 
-```
+```text
 skills/
 └── fix-ado-comment-markdown/        # ADO 留言發布／修復＋Markdown 校正
     ├── SKILL.md
