@@ -35,7 +35,7 @@ skills/
 以明確調用開頭（Claude Code 用 `/fix-ado-comment-markdown`，Codex CLI 用 `$fix-ado-comment-markdown`），後面接需求：
 
 ```text
-/fix-ado-comment-markdown 把 work item 12345 我的 HTML 留言全部修復成 Markdown，只動我自己的留言，先 dry-run 給我看
+/fix-ado-comment-markdown 把 work item 12345 中 author 是 user@example.com 的 HTML 留言全部修復成 Markdown，只動 user@example.com 的留言，先 dry-run 給我看
 ```
 
 ```text
@@ -43,7 +43,11 @@ $fix-ado-comment-markdown 用 comment.md 的內容對 work item 12345 發一則�
 ```
 
 ```text
-/fix-ado-comment-markdown 修復 work item 12345、12388 的交接留言：對照資料改表格、步驟改編號清單，改完抽查渲染結果
+/fix-ado-comment-markdown 修復 work item 12345、12388 的交接留言（作者 user@example.com）：對照資料改表格、步驟改編號清單，改完抽查渲染結果
+```
+
+```text
+/fix-ado-comment-markdown 全專案修復：先用 WIQL 盤點專案所有 work item，把 author 是 user@example.com 的 HTML 留言全部修復成 Markdown，分批處理、每批先 dry-run，全部完成後給我處理摘要
 ```
 
 ```text

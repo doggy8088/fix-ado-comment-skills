@@ -42,6 +42,11 @@ export ADO_ORG=https://dev.azure.com/<org> ADO_PROJECT=<project>
 ## B. 修復既有 HTML 留言
 
 1. **盤點**：`python3 -I $T pull --id <ID> [<ID> ...] --author <uniqueName> --out <dir>`。預設只取 `format=html`；`--format ''` 取全部。每則輸出 `<wi>-<cid>.orig.txt`（原文）、`<wi>-<cid>.md`（草稿）與 `manifest.json`（含 version 與 work item 狀態）。
+   **全專案修復：** 使用者要求整個專案時，WIQL 查不到留言作者，先盤點候選 work item，再用 `pull --author` 過濾留言：
+   ```bash
+   az boards query --wiql "SELECT [System.Id] FROM WorkItems WHERE [System.TeamProject] = @project ORDER BY [System.Id]" --query "workItems[].id" -o tsv
+   ```
+   ID 多時分批（每批約 50 個）`pull` 到各自的 `<dir>`，每批各自走完 2–6 步；不要把全專案 ID 塞進單一批次。
    **完成條件：** 清單列出的留言數與使用者指定範圍一致；不在範圍內的留言已從 manifest 移除。
 2. **重整草稿**：工具產生的 `.md` 只是起點（依句號／分號切句、開頭標籤加粗、SHA 加反引號）。逐則對照 `.orig.txt` 重新組織：可對照的資料改表格、步驟改編號清單。文字只重新排版，不改意思、不增刪事實。機械轉換的常見錯誤：粗體被切斷、括號內的「；」被拆成兩項、8 碼日期被當成 SHA、長標籤沒被辨識。
    **完成條件：** 每則草稿都讀過一遍並與原文比對，原文的每個事實都還在。
@@ -57,6 +62,7 @@ export ADO_ORG=https://dev.azure.com/<org> ADO_PROJECT=<project>
 ## 安全界線
 
 - 只改使用者指定範圍內、指定作者的留言；他人的留言不動。
+- 全專案修復改動量大：先 `--dry-run` 並回報總留言數與批數，經使用者確認後才寫入。
 - 修改留言會在 ADO 顯示「已編輯」，對方已讀的交接留言改寫前先說明影響。
 - Done／Removed／Closed 項目預設不改，使用者點名才加 `--include-closed`。
 - 帳密與權杖只經 `az` 取得，不寫入草稿、manifest 或輸出。
