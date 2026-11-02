@@ -1,7 +1,7 @@
 interface:
   display_name: "Fix ADO Comment Markdown"
-  short_description: "以 Markdown 發布並修復 ADO work item 留言"
-  default_prompt: "用 $fix-ado-comment-markdown 把指定的 ADO work item 留言修復成 Markdown。"
+  short_description: "以 Markdown 發布／修復 ADO 留言，並校正 Markdown 語法"
+  default_prompt: "用 $fix-ado-comment-markdown 修復指定的 ADO work item 留言為 Markdown。"
 
 policy:
   allow_implicit_invocation: false

@@ -1,7 +1,0 @@
-interface:
-  display_name: "Markdown Autocorrect"
-  short_description: "檢查並校正常見 Markdown 語法錯誤與 CJK 排版"
-  default_prompt: "用 $markdown-autocorrect 檢查並校正這份 Markdown。"
-
-policy:
-  allow_implicit_invocation: false
